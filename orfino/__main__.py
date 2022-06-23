@@ -6,15 +6,17 @@ from orfino.main import main
 
 if __name__ == "__main__":
     # read config file
-    exchanges, log_handlers = read_config(
-        path=r"C:\Users\Max\Code\orfino\dev_config.ini"
-    )
+    path_config = r"C:\Users\Max\Code\orfino\dev_config.ini"
+    exchanges, log_handlers = read_config(path=path_config)
 
     # get root logger and add handlers as specified in config
     root_logger = logging.getLogger()
     root_logger.setLevel(level=logging.DEBUG)
     for log_handler in log_handlers:
         root_logger.addHandler(log_handler)
+
+    # log successful setup
+    logging.debug(f"Sucessfully read {path_config}")
 
     # execute main function and log any exceptions
     try:

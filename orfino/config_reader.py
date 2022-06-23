@@ -48,10 +48,14 @@ def read_config(
                 when=parser[section]["when"],
             )
             handler.setLevel(level=logging.DEBUG)
+            formatter = logging.Formatter(
+                "%(asctime)s [pid %(process)d] %(levelname)-8s %(module)s.%(funcName)s():%(lineno)d %(message)s"
+            )
+            handler.setFormatter(formatter)
             handlers.append(handler)
         else:
             logger.warning(
-                f"Ignoring {section}: Is neither a valid exchange id for ccxt nor a valid log handler"
+                f"Ignoring {section}: It's neither a valid exchange id for ccxt nor a valid log handler"
             )
 
     return exchanges, handlers
