@@ -4,7 +4,7 @@ import os
 from unittest import TestCase
 from logging.handlers import TimedRotatingFileHandler
 
-from orfino.config_reader import get_exchanges_and_log_handler
+from orfino.config_reader import read_config
 from orfino.handler import NotifyMyDeviceHandler
 
 
@@ -36,8 +36,8 @@ class TestReadConfig(TestCase):
         except FileNotFoundError:
             pass
 
-    def test_wololo(self):
-        exchanges, handlers = get_exchanges_and_log_handler(self.path_config_sample)
+    def test_read_config_simple_example(self):
+        exchanges, handlers = read_config(self.path_config_sample)
         self.assertEqual("Binance", exchanges[0].name)
         self.assertIsInstance(handlers[0], NotifyMyDeviceHandler)
         self.assertIsInstance(handlers[1], TimedRotatingFileHandler)
