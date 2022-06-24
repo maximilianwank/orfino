@@ -7,98 +7,26 @@ from orfino.order_watcher import OrderWatcher
 
 
 class TestOrderWatcher(TestCase):
+    def setUp(self) -> None:
+        self.fetch_orders_return = [
+            {"id": "8985443494", "symbol": "BTC/USDT"},
+            {"id": "7958465952", "symbol": "ETH/USDC"},
+        ]
+        self.mock_order_1 = {"id": "8985443494", "symbol": "BTC/USDT"}
+        self.mock_order_2 = {"id": "7958465952", "symbol": "ETH/USDC"}
+
     @patch("ccxt.binance.fetch_open_orders")
     def test_init(self, mock_fetch_orders):
-        mock_fetch_orders.return_value = [
-            {
-                "info": {
-                    "symbol": "ETHEUR",
-                    "orderId": "1737991846",
-                    "orderListId": "-1",
-                    "clientOrderId": "and_14006176108a4a928154b4150a1eb81d",
-                    "price": "942.15000000",
-                    "origQty": "0.12500000",
-                    "executedQty": "0.00000000",
-                    "cummulativeQuoteQty": "0.00000000",
-                    "status": "NEW",
-                    "timeInForce": "GTC",
-                    "type": "LIMIT",
-                    "side": "BUY",
-                    "stopPrice": "0.00000000",
-                    "icebergQty": "0.00000000",
-                    "time": "1655700095744",
-                    "updateTime": "1655700095744",
-                    "isWorking": True,
-                    "origQuoteOrderQty": "0.00000000",
-                },
-                "id": "1737991846",
-                "clientOrderId": "and_14006176108a4a928154b4150a1eb81d",
-                "timestamp": 1655700095744,
-                "datetime": "2022-06-20T04:41:35.744Z",
-                "lastTradeTimestamp": None,
-                "symbol": "ETH/EUR",
-                "type": "limit",
-                "timeInForce": "GTC",
-                "postOnly": False,
-                "reduceOnly": None,
-                "side": "buy",
-                "price": 942.15,
-                "stopPrice": None,
-                "amount": 0.125,
-                "cost": 0.0,
-                "average": None,
-                "filled": 0.0,
-                "remaining": 0.125,
-                "status": "open",
-                "fee": None,
-                "trades": [],
-                "fees": [],
-            },
-            {
-                "info": {
-                    "symbol": "ETHEUR",
-                    "orderId": "1738570524",
-                    "orderListId": "-1",
-                    "clientOrderId": "web_e2b92111dac047ff93d4156db0e0bfdf",
-                    "price": "999.00000000",
-                    "origQty": "0.12500000",
-                    "executedQty": "0.00000000",
-                    "cummulativeQuoteQty": "0.00000000",
-                    "status": "NEW",
-                    "timeInForce": "GTC",
-                    "type": "TAKE_PROFIT_LIMIT",
-                    "side": "BUY",
-                    "stopPrice": "963.00000000",
-                    "trailingDelta": "300",
-                    "icebergQty": "0.00000000",
-                    "time": "1655721367118",
-                    "updateTime": "1655721367118",
-                    "isWorking": False,
-                    "origQuoteOrderQty": "0.00000000",
-                },
-                "id": "1738570524",
-                "clientOrderId": "web_e2b92111dac047ff93d4156db0e0bfdf",
-                "timestamp": 1655721367118,
-                "datetime": "2022-06-20T10:36:07.118Z",
-                "lastTradeTimestamp": None,
-                "symbol": "ETH/EUR",
-                "type": "take_profit_limit",
-                "timeInForce": "GTC",
-                "postOnly": False,
-                "reduceOnly": None,
-                "side": "buy",
-                "price": 999.0,
-                "stopPrice": 963.0,
-                "amount": 0.125,
-                "cost": 0.0,
-                "average": None,
-                "filled": 0.0,
-                "remaining": 0.125,
-                "status": "open",
-                "fee": None,
-                "trades": [],
-                "fees": [],
-            },
-        ]
+        mock_fetch_orders.return_value = self.fetch_orders_return
         order_watcher = OrderWatcher(exchange=ccxt.binance())
         self.assertEqual(len(order_watcher.open_orders), 2)
+
+    @patch("ccxt.binance.fetch_order")
+    @patch("ccxt.binance.fetch_order")
+    @patch("ccxt.binance.fetch_open_orders")
+    def test_log_filled_order(self, mock_fetch_orders, mock_order_1, mock_order_2):
+        mock_fetch_orders.return_value = self.fetch_orders_return
+        mock_order_1.return_value = self.mock_order_1
+        mock_order_2.return_value = self.mock_order_2
+        order_watcher = OrderWatcher(exchange=ccxt.binance())
+        order_watcher.log_filled_orders()

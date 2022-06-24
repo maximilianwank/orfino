@@ -184,4 +184,5 @@ fabric.properties
 # idea folder, uncomment if you don't need it
 .idea
 
-/dev_config.ini
+# files like sample config etc
+/dev_files
