@@ -25,8 +25,7 @@ class OrderWatcher:
             self.exchange.options["warnOnFetchOpenOrdersWithoutSymbol"] = True
             # save new open orders
             self.open_orders = [
-                Order(id=oo['id'], symbol=oo['symbol'])
-                for oo in open_orders_raw
+                Order(id=oo["id"], symbol=oo["symbol"]) for oo in open_orders_raw
             ]
 
     def log_filled_orders(self):
