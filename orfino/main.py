@@ -1,7 +1,14 @@
-import logging
+import time
+from typing import List
 
-def main():
-    logging.debug("A debug from main")
-    logging.info("A info from main")
-    logging.warning("A warning from main")
-    logging.error("A error from main")
+import ccxt
+
+from orfino.order_watcher import OrderWatcher
+
+
+def main(exchanges: List[ccxt.Exchange]):
+    order_watchers = [OrderWatcher(exchange=exchange) for exchange in exchanges]
+    while True:
+        for ow in order_watchers:
+            ow.check_and_notify()
+        time.sleep(60)

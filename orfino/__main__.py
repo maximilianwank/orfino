@@ -1,12 +1,12 @@
 import logging.handlers
 
-from orfino.config_reader import read_config
+from orfino.config_reader import parse_config_path, read_config
 from orfino.main import main
 
 
 if __name__ == "__main__":
     # read config file
-    path_config = r"C:\Users\Max\Code\orfino\dev_config.ini"
+    path_config = parse_config_path()
     exchanges, log_handlers = read_config(path=path_config)
 
     # get root logger and add handlers as specified in config
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # execute main function and log any exceptions
     try:
-        main()
+        main(exchanges=exchanges)
     except Exception as e:
         # something went wrong
         error_name = type(e).__name__
