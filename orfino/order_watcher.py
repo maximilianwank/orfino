@@ -46,19 +46,20 @@ class OrderWatcher:
         """
         Log and therefore notify orders that have been filled. Filled orders are removed from self.open_orders.
         """
-        filled_raw = [
+        # ToDo: This method does not distinguish between various not open states (closed / canceled / filled) etc.
+        not_open_raw = [
             od
             for o in self.open_orders
             if (od := self.exchange.fetch_order(id=o.id, symbol=o.symbol))["status"]
-            == "filled"
+            != "open"
         ]
         # log and notify filled orders
-        for fo in filled_raw:
+        for fo in not_open_raw:
             coin_traded, coin_base = fo["symbol"].split("/")
             logger.info(f'{fo["side"]} {fo["amount"]} {coin_traded} for {coin_base}')
         # remove filled from list - this happens only sometimes when calling self._update_open_orders_rate_limited to
         # rate limits
-        filled = [o for x in filled_raw if (o := Order(id=x["id"], symbol=x["symbol"]))]
+        filled = [Order(id=x["id"], symbol=x["symbol"]) for x in not_open_raw]
         for fo in filled:
             self.open_orders.remove(fo)
 
