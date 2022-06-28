@@ -8,5 +8,6 @@ setup(
     author_email="orfino@alpenjodel.de",
     description="Send notifications for filled orders on crypto exchanges",
     packages=["orfino"],
+    license='MIT',
     install_requires=["ccxt >= 1.88.34"],
 )
