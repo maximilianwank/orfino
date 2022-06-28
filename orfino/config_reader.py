@@ -1,3 +1,4 @@
+import argparse
 import configparser
 import logging
 import logging.handlers
@@ -8,6 +9,13 @@ import ccxt
 import orfino.handler
 
 logger = logging.getLogger(__file__)
+
+
+def parse_config_path() -> str:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path_config", type=str)
+    x = parser.parse_args()
+    return x.path_config
 
 
 def read_config(
