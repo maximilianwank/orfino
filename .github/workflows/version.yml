@@ -32,7 +32,7 @@ jobs:
       - name: Get diff files
         id: diff-files
         run: |
-          diff_files=$(git diff main.. --name-only | grep orfino/)
+          diff_files=$(git diff origin/main.. --name-only | grep orfino/)
           echo $diff_files
       - name: Compare
         run: |
