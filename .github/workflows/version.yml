@@ -36,4 +36,4 @@ jobs:
         run: |
           diff_files=$(git diff origin/main.. --name-only | grep -E 'setup.py|orfino/')
           echo Relevant changes in following files: $diff_files
-          if [ "$diff_files" = "" ]; then exit 0; else exit 1; fi
+          if [ -z "$diff_files" ]; then exit 0; else exit 1; fi
