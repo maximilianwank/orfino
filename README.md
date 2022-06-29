@@ -29,3 +29,12 @@ filename = orfino.log
 count = 14
 when = D
 ```
+
+## :running: Run the program
+
+One can start the program with the command line using its module name. 
+Note that you must pass the path to your config file as argument:
+
+```
+python3 -m orfino /path/to/your/config.ini
+```
