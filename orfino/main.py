@@ -11,4 +11,4 @@ def main(exchanges: List[ccxt.Exchange]):
     while True:
         for ow in order_watchers:
             ow.check_and_notify()
-        time.sleep(61)
+        time.sleep(60)
