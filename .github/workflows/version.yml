@@ -1,0 +1,34 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - version-pipeline
+
+jobs:
+  check-version:
+    name: Check Version Update
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Get version of main
+        id: version-main
+        run: |
+          version_main=$(grep version setup.py)
+          echo "::set-output name=VERSION_MAIN::${version_main}"
+      - name: Checkout head branch
+        uses: actions/checkout@v2
+      - name: Get version head
+        id: version-head
+        run: |
+          version_head=$(grep version setup.py)
+          echo "::set-output name=VERSION_HEAD::${version_head}"
+      - name: Compare
+        run: |
+          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 1; fi
