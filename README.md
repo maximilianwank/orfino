@@ -12,7 +12,7 @@ pip install git+https://github.com/maximilianwank/orfino.git
 It is recommended to use some virtual environment like [venv](https://docs.python.org/3/library/venv.html) or others.
 
 
-## :page_facing_up: Configuration
+## :gear: Configuration
 
 A full config sample would be the following:
 
