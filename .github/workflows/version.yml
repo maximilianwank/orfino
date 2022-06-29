@@ -29,6 +29,11 @@ jobs:
         run: |
           version_head=$(grep version setup.py)
           echo "::set-output name=VERSION_HEAD::${version_head}"
+      - name: Get diff files
+        id: diff-files
+        run: |
+          diff_files=$(git diff main.. --name-only | grep orfino/)
+          echo $diff_files
       - name: Compare
         run: |
           if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 1; fi
