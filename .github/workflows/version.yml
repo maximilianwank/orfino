@@ -29,11 +29,19 @@ jobs:
         run: |
           version_head=$(grep version setup.py)
           echo "::set-output name=VERSION_HEAD::${version_head}"
-      - name: Compare
+      - name: Compare versions
+        id: new-version
         run: |
-          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" != "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 0; fi
+          new_version=false
+          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" != "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then new_version=true; fi
+          echo "New version in setup.py: $new_version"
+          echo "::set-output name=NEW_VERSION::${new_version}"
       - name: Determine relevant changes
+        id: relevant-changes
         run: |
           diff_files=$(git diff origin/main.. --name-only | grep -E 'setup.py|orfino/')
           echo Relevant changes in following files: $diff_files
-          if [ -z "$diff_files" ]; then exit 0; else exit 1; fi
+          relevant_changes=true
+          if [ -z "$diff_files" ]; then relevant_changes=false; fi
+          echo "Relevant changes in code: $relevant_changes"
+          echo "::set-output name=RELEVANT_CHANGES::${relevant_changes}"
