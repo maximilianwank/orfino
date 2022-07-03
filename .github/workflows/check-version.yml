@@ -1,4 +1,4 @@
-name: Version
+name: Check Version
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-version:
-    name: Check Version Update
+    name: Check Version Update on Code Change
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
