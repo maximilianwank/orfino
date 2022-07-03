@@ -40,5 +40,5 @@ jobs:
         if: env.GIT_DIFF_FILTERED
       - name: Compare versions
         run: |
-          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then return 1; fi
+          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 1; fi
         if: env.GIT_DIFF_FILTERED
