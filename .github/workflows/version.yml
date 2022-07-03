@@ -14,32 +14,32 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            +orfino/*
+            +orfino
           FILES: |
             setup.py
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
           ref: main
-        if: env.GIT_DIFF_FILTERED
+        if: env.MATCHED_FILES
       - name: Get version of main
         id: version-main
         run: |
           version_main=$(grep version setup.py)
           echo "Version in setup.py on main: $version_main"
           echo "::set-output name=VERSION_MAIN::${version_main}"
-        if: env.GIT_DIFF_FILTERED
+        if: env.MATCHED_FILES
       - name: Checkout head branch
         uses: actions/checkout@v2
-        if: env.GIT_DIFF_FILTERED
+        if: env.MATCHED_FILES
       - name: Get version head
         id: version-head
         run: |
           version_head=$(grep version setup.py)
           echo "Version in setup.py on dev branch: version_head"
           echo "::set-output name=VERSION_HEAD::${version_head}"
-        if: env.GIT_DIFF_FILTERED
+        if: env.MATCHED_FILES
       - name: Compare versions
         run: |
           if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 1; fi
-        if: env.GIT_DIFF_FILTERED
+        if: env.MATCHED_FILES
