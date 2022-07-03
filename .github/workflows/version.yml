@@ -11,8 +11,19 @@ on:
 jobs:
   check-version:
     name: Check Version Update
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            orfino/*
+            setup.py
+      - name: Show diff
+        run: |
+          echo '${{ env.GIT_DIFF }}'
+          echo '${{ env.GIT_DIFF_FILTERED }}'
+          echo '${{ MATCHED_FILES.GIT_DIFF }}'
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
