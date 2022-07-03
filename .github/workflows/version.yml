@@ -16,9 +16,6 @@ jobs:
         #  PATTERNS: |
         #    +orfino/*
         #    setup.py
-          FILES:
-            orfino/*
-            setup.py
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
