@@ -14,9 +14,9 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            +orfino
-          FILES: |
-            setup.py
+            +orfino/**
+          # FILES: |
+          #   setup.py
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
