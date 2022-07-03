@@ -23,7 +23,7 @@ jobs:
         run: |
           echo '${{ env.GIT_DIFF }}'
           echo '${{ env.GIT_DIFF_FILTERED }}'
-          echo '${{ MATCHED_FILES.GIT_DIFF }}'
+          echo '${{ env.MATCHED_FILES }}'
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
