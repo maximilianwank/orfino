@@ -17,13 +17,8 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            orfino/*
+            +orfino/*
             setup.py
-      - name: Show diff
-        run: |
-          echo '${{ env.GIT_DIFF }}'
-          echo '${{ env.GIT_DIFF_FILTERED }}'
-          echo '${{ env.MATCHED_FILES }}'
       - name: Checkout main branch
         uses: actions/checkout@v2
         with:
