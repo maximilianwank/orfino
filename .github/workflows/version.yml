@@ -25,6 +25,7 @@ jobs:
         id: version-main
         run: |
           version_main=$(grep version setup.py)
+          echo "Version in setup.py on main: $version_main"
           echo "::set-output name=VERSION_MAIN::${version_main}"
         if: env.GIT_DIFF_FILTERED
       - name: Checkout head branch
@@ -34,13 +35,10 @@ jobs:
         id: version-head
         run: |
           version_head=$(grep version setup.py)
+          echo "Version in setup.py on dev branch: version_head"
           echo "::set-output name=VERSION_HEAD::${version_head}"
         if: env.GIT_DIFF_FILTERED
       - name: Compare versions
-        id: new-version
         run: |
-          new_version=false
-          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" != "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then new_version=true; fi
-          echo "New version in setup.py: $new_version"
-          echo "::set-output name=NEW_VERSION::${new_version}"
+          if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then return 1; fi
         if: env.GIT_DIFF_FILTERED
