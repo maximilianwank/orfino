@@ -21,25 +21,25 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: main
-        if: env.GIT_DIFF_FILTERED
+        if: env.GIT_DIFF
       - name: Get version of main
         id: version-main
         run: |
           version_main=$(grep version setup.py)
           echo "Version in setup.py on main: $version_main"
           echo "::set-output name=VERSION_MAIN::${version_main}"
-        if: env.GIT_DIFF_FILTERED
+        if: env.GIT_DIFF
       - name: Checkout head branch
         uses: actions/checkout@v2
-        if: env.GIT_DIFF_FILTERED
+        if: env.GIT_DIFF
       - name: Get version head
         id: version-head
         run: |
           version_head=$(grep version setup.py)
           echo "Version in setup.py on dev branch: version_head"
           echo "::set-output name=VERSION_HEAD::${version_head}"
-        if: env.GIT_DIFF_FILTERED
+        if: env.GIT_DIFF
       - name: Compare versions
         run: |
           if [ "${{ steps.version-main.outputs.VERSION_MAIN }}" = "${{ steps.version-head.outputs.VERSION_HEAD }}" ]; then exit 1; fi
-        if: env.GIT_DIFF_FILTERED
+        if: env.GIT_DIFF
