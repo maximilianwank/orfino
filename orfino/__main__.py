@@ -1,4 +1,5 @@
 import logging.handlers
+import time
 
 from orfino.config_reader import parse_config_path, read_config
 from orfino.main import main
@@ -25,4 +26,5 @@ if __name__ == "__main__":
         # something went wrong
         error_name = type(e).__name__
         logging.exception(msg=f"{error_name} in orfino main function!", exc_info=True)
+        time.sleep(60)  # sleep to ensure that exception is actually logged
         exit(1)
