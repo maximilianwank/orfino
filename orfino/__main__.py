@@ -25,6 +25,8 @@ if __name__ == "__main__":
     except Exception as e:
         # something went wrong
         error_name = type(e).__name__
-        logging.exception(msg=f"{error_name} in orfino main function!", exc_info=True)
-        time.sleep(60)  # sleep to ensure that exception is actually logged
+        logging.exception(
+            msg=f"{error_name} caught in orfino main function: {e}", exc_info=True
+        )
+        time.sleep(60)
         exit(1)
