@@ -1,7 +1,7 @@
 # orfino
 This Python package contains a notification service for filled orders on crypto exchanges.
 
-If you want to support the development of this tool and additionally benefit while trading, consider to use my referral 
+If you want to benefit while trading and additionally support the development of this tool, consider to use my referral 
 links to the exchanges I use the most:
 
 * [Binance](https://accounts.binance.com/en/register?ref=80028974): Referral ID 80028974
