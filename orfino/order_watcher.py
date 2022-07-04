@@ -41,18 +41,25 @@ class OrderWatcher:
             self.open_orders = [
                 Order(id=oo["id"], symbol=oo["symbol"]) for oo in open_orders_raw
             ]
+            logger.debug(
+                f"Updated all open orders on {self.exchange.name} at {self._update_orders_last_call}"
+            )
 
     def _notify_filled_orders_and_remove_from_local_list(self) -> None:
         """
         Log and therefore notify orders that have been filled. Filled orders are removed from self.open_orders.
         """
         # ToDo: This method does not distinguish between various not open states (closed / canceled / filled) etc.
-        not_open_raw = [
-            od
-            for o in self.open_orders
-            if (od := self.exchange.fetch_order(id=o.id, symbol=o.symbol))["status"]
-            != "open"
-        ]
+        try:
+            not_open_raw = [
+                od
+                for o in self.open_orders
+                if (od := self.exchange.fetch_order(id=o.id, symbol=o.symbol))["status"]
+                != "open"
+            ]
+        except ccxt.NetworkError as e:
+            logger.warning(f"Unable to fetch open orders: {e}")
+            not_open_raw = []
         # log and notify filled orders
         for fo in not_open_raw:
             coin_traded, coin_base = fo["symbol"].split("/")
