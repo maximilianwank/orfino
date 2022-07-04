@@ -6,6 +6,9 @@ import urllib.request
 import urllib.error
 
 
+logger = logging.getLogger(__name__)
+
+
 def send_notify_my_device_message(
     api_key: str, title: str, body: str
 ) -> typing.Optional[http.client.HTTPResponse]:
@@ -24,8 +27,8 @@ def send_notify_my_device_message(
     )
     try:
         response = urllib.request.urlopen(req)
-    except urllib.error.URLError:
-        print("No connection to the internet - find a use case specific solution")
+    except urllib.error.URLError as e:
+        logger.warning(f"Unable to send notification via Notify My Device: {e}")
         response = None
     return response
 

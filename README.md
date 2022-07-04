@@ -1,6 +1,12 @@
 # orfino
 This Python package contains a notification service for filled orders on crypto exchanges.
 
+If you want to benefit while trading and additionally support the development of this tool, consider to use my referral 
+links to the exchanges I use the most:
+
+* [Binance](https://accounts.binance.com/en/register?ref=80028974): Referral ID 80028974
+* [Kucoin](https://www.kucoin.com/ucenter/signup?rcode=r3L3UJ8): Referral Code r3L3UJ8
+
 ## :electric_plug: Installation
 
 Assuming [pip](https://pip.pypa.io/) and [git](https://git-scm.com/) available on your system, just use
