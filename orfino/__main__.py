@@ -18,10 +18,6 @@ if __name__ == "__main__":
     # log successful setup
     logging.debug(f"Sucessfully read {path_config}")
 
-    # set ccxt logger to info
-    logger_ccxt = logging.getLogger("ccxt")
-    logger_ccxt.setLevel(logging.INFO)
-
     # execute main function and log any exceptions
     try:
         main(exchanges=exchanges)

@@ -42,6 +42,7 @@ def read_config(
                     "secret": parser[section]["secret"],
                 }
             )
+            exchange.logger.setLevel(logging.INFO)
             exchanges.append(exchange)
         elif section.lower() == "notifymydevice":
             handler = orfino.handler.NotifyMyDeviceHandler(
