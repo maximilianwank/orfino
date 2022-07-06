@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="orfino",
-    version="0.1.1",
+    version="0.1.2",
     url="https://github.com/maximilianwank/orfino",
     author="Maximilian Wank",
     author_email="orfino@alpenjodel.de",
