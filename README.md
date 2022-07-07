@@ -56,7 +56,7 @@ tested. Please feel free to reach out if you want exchanges to be added.
 ### :bell: Notify My Device
 
 Notifications on filled orders can be sent via [Notify My Device](https://www.notifymydevice.com/). You just have to 
-register and install the App on your respective device.
+register and install the app on your respective device.
 
 ### :card_file_box: Timed Rotating File Logger
 
