@@ -50,6 +50,7 @@ class OrderWatcher:
         Log and therefore notify orders that have been filled. Filled orders are removed from self.open_orders.
         """
         # ToDo: This method does not distinguish between various not open states (closed / canceled / filled) etc.
+        # see https://docs.ccxt.com/en/latest/manual.html#order-structure
         try:
             not_open_raw = [
                 od
