@@ -13,7 +13,7 @@ Please note that this tool comes without any kind of warranty.
 
 ## :electric_plug: Installation
 
-Assuming [pip](https://pip.pypa.io/) available on your system, just use
+Assuming [pip](https://pip.pypa.io/) being available on your system, just use
 
 ```
 pip install https://github.com/maximilianwank/orfino/archive/refs/heads/main.zip
@@ -55,7 +55,7 @@ tested. Please feel free to reach out if you want exchanges to be added.
 
 ### :bell: Notify My Device
 
-Notification on filled orders can be sent via [Notify My Device](https://www.notifymydevice.com/). You just have to 
+Notifications on filled orders can be sent via [Notify My Device](https://www.notifymydevice.com/). You just have to 
 register and install the App on your respective device.
 
 ### :card_file_box: Timed Rotating File Logger
