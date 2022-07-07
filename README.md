@@ -50,8 +50,8 @@ With `;` you can comment sections.
 
 Exchanges can be added by a section with the name of the exchange and different keys like `key` (for an API key), 
 `secret` (for the API secret) and an optional `password`. Using [ccxt](https://github.com/ccxt/ccxt) for the API calls, 
-in theory [many exchanges](https://github.com/ccxt/ccxt) are supported. However, only Binance and Kucoin have been 
-tested. Please feel free to reach out if you want exchanges to be added.
+in theory [many exchanges](https://github.com/ccxt/ccxt#certified-cryptocurrency-exchanges) are supported. However, 
+only Binance and Kucoin have been tested. Please feel free to reach out if you want exchanges to be added.
 
 ### :bell: Notify My Device
 
