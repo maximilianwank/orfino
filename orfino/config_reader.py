@@ -36,12 +36,13 @@ def read_config(
     for section in parser.sections():
         if section in ccxt.exchanges:
             exchange_class = getattr(ccxt, section)
-            exchange = exchange_class(
-                config={
-                    "apiKey": parser[section]["key"],
-                    "secret": parser[section]["secret"],
-                }
-            )
+            config = {
+                "apiKey": parser[section]["key"],
+                "secret": parser[section]["secret"],
+            }
+            if "password" in parser[section]:
+                config["password"] = parser[section]["password"]
+            exchange = exchange_class(config=config)
             exchange.logger.setLevel(logging.INFO)
             exchanges.append(exchange)
         elif section.lower() == "notifymydevice":
