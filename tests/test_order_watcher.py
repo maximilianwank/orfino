@@ -42,6 +42,7 @@ class TestCcxtOrderToText(TestCase):
         self.assertEqual(r, "Closed: Buying 1.5 ETH for 0.076094524 BTC")
 
     def test_without_cost(self):
+        # see what happens without cost
         del self.sample_order_structure["cost"]
         r = ccxt_order_to_text(self.sample_order_structure)
         self.assertEqual(r, "Closed: Buying 1.5 ETH for BTC")
