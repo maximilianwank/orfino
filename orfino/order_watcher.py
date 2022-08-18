@@ -19,7 +19,7 @@ def capitalize_first_letter(s: str) -> str:
 
 def ccxt_order_to_text(order: Dict[str, Any]) -> str:
     """
-    Convert the raw ccxt order to a string
+    Convert a raw ccxt order (see https://docs.ccxt.com/en/latest/manual.html#order-structure) to a string
     :param order: Order structure as returned from ccxt
     :return: Human readable string with order information
     """
