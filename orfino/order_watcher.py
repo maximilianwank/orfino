@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, timedelta
+from typing import Dict, Any
 
 from orfino.data_model import Order
 
@@ -7,6 +8,28 @@ import ccxt
 
 
 logger = logging.getLogger(__name__)
+
+
+def capitalize_first_letter(s: str) -> str:
+    if s:
+        return s[0].upper() + s[1:]
+    else:
+        return ""
+
+
+def ccxt_order_to_text(order: Dict[str, Any]) -> str:
+    """
+    Convert a raw ccxt order (see https://docs.ccxt.com/en/latest/manual.html#order-structure) to a string
+    :param order: Order structure as returned from ccxt
+    :return: Human readable string with order information
+    """
+    status = order["status"]
+    side = order["side"]
+    amount = order["amount"]
+    coin1, coin2 = order["symbol"].split("/")
+    cost = " " + str(order["cost"]) if "cost" in order else ""
+    res = f"{capitalize_first_letter(status)}: {capitalize_first_letter(side)}ing {amount} {coin1} for{cost} {coin2}"
+    return res
 
 
 class OrderWatcher:
@@ -63,8 +86,7 @@ class OrderWatcher:
             not_open_raw = []
         # log and notify filled orders
         for fo in not_open_raw:
-            coin_traded, coin_base = fo["symbol"].split("/")
-            logger.info(f'{fo["side"]} {fo["amount"]} {coin_traded} for {coin_base}')
+            logger.info(f"{ccxt_order_to_text(fo)} on {self.exchange.name}")
         # remove filled from list - this happens only sometimes when calling self._update_open_orders_rate_limited to
         # rate limits
         filled = [Order(id=x["id"], symbol=x["symbol"]) for x in not_open_raw]
