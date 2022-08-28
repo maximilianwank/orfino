@@ -1,5 +1,5 @@
 # orfino
-This Python package contains a notification service for filled orders on crypto exchanges.
+This Python program is a notification service for filled orders on crypto exchanges.
 
 If you want to benefit while trading and additionally support the development of this tool, consider to use my referral 
 links to the exchanges I use the most:
@@ -66,9 +66,45 @@ You can use a timed rotating file logger to save a log of various messages. Have
 
 ## :running: Run the program
 
+### :arrow_forward: Manual start
+
 One can start the program with the command line using its module name. 
 Note that you must pass the path to your config file as argument:
 
 ```
 python3 -m orfino /path/to/your/config.ini
 ```
+
+Make sure the Python interpreter is the one from your virtual environment.
+
+### :smiling_imp: As daemon with systemd
+
+It is convenient to run orfino as daemon. This can be achieved for example with 
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/), which is part of many Linux distributions anyway. 
+To do so, save
+
+```
+[Unit]
+Description=Notification service for filled orders on crypto exchanges
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/path/to/your/venv/bin/python3 -m orfino /path/to/your/config.ini
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
+```
+
+to `/etc/systemd/system/orfino.service`. After that, enter
+
+```
+systemctl daemon-reload
+systemctl enable orfino
+systemctl start orfino
+```
+
+to actually run orfino as daemon.
