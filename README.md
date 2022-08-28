@@ -1,5 +1,5 @@
 # orfino
-This Python package contains a notification service for filled orders on crypto exchanges.
+This Python program is a notification service for filled orders on crypto exchanges.
 
 If you want to benefit while trading and additionally support the development of this tool, consider to use my referral 
 links to the exchanges I use the most:
@@ -85,7 +85,7 @@ To do so, save
 
 ```
 [Unit]
-Description=Run orfino (order filled notifications) as daemon
+Description=Notification service for filled orders on crypto exchanges
 Wants=network-online.target
 After=network-online.target
 
