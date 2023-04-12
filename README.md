@@ -21,6 +21,13 @@ pip install https://github.com/maximilianwank/orfino/archive/refs/heads/main.zip
 
 It is recommended to use some virtual environment like [venv](https://docs.python.org/3/library/venv.html) or others.
 
+Please note that the installation on a Raspberry Pi 1 with Raspbian 11 (bullseye) requires the installation of 
+additional packages, for example via
+```
+sudo apt-get install build-essential libssl-dev/bullseye libffi-dev python3-dev cargo pkg-config
+```
+and may take more time than you are willing to watch.
+
 ## :gear: Configuration
 
 A config sample would be the following:
